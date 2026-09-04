@@ -3,19 +3,15 @@ print("Welcome")
 print("It's my first post")
 print("==================================")
 
-username = "Alister"
-bio = "Testing thissss"
-follower = 2026
+username = input("Enter Username: ")
+age =  int(input("Enter Age: "))
+category = input("Enter Content Category: ")
 
-follower += 10
-print("Day 1: ", follower)
-
-follower += 20
-print("Day 2: ", follower)
-
-follower -= 35
-print("Day 3: ", follower)
-
+print("\nInstagram Profile")
+print("==================================")
 print("Username:", username)
-print("Bio: ", bio)
-print("Followers: ", follower)
+print("Age: ", age)
+print("Category: ", category)
+
+if age>40 and category == "Food":
+    print("You are old what food do you like???")
