@@ -1,6 +1,6 @@
 from decimal import Decimal, InvalidOperation
 
-#Initalize Inventory
+#Initalize
 total_inventory = 0
 failed_entries = 0
 deliveries_processed = 0
