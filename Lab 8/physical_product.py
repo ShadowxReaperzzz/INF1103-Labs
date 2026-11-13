@@ -63,7 +63,16 @@ class PhysicalProduct(Product, CanBeShipped):
 
     @classmethod
     def from_dict(cls, data: dict, default_id: str):
-        supplier = Supplier.from_dict(data["supplier"])
+        supplier_data = data.get(
+            "supplier",
+            {
+                "supplier_id": "SUP000",
+                "name": "Unspecified Supplier",
+                "contact_email": "not-provided@example.com"
+            }
+        )
+
+        supplier = Supplier.from_dict(supplier_data)
 
         return cls(
             data.get("product_id", default_id),
