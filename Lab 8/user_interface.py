@@ -7,6 +7,7 @@ import math
 from physical_product import PhysicalProduct
 from digital_product import DigitalProduct
 from inventory_storage import save_inventory
+from supplier import Supplier
 
 class QuitRequested(Exception):
     pass
@@ -113,18 +114,29 @@ def add_product_flow(inventory):
     price = get_price("Price: ")
     quantity = get_integer("Stock Quantity: ")
 
+    print("\nSupplier Information")
+    supplier_id = get_input("Supplier ID: ")
+    supplier_name = get_input("Supplier Name: ")
+    supplier_email = get_input("Supplier Email: ")
+
+    supplier = Supplier(
+        supplier_id,
+        supplier_name,
+        supplier_email
+    )
+
     try:
         if product_type == "physical":
             weight = get_positive_float("Weight (kg): ", "weight")
             product = PhysicalProduct(
-                product_id, name, price, quantity, weight
+                product_id, name, price, quantity, supplier, weight
             )
         else:
             size = get_positive_float(
                 "Download size (MB): ", "download size"
             )
             product = DigitalProduct(
-                product_id, name, price, quantity, size
+                product_id, name, price, quantity, supplier, size
             )
 
         inventory.add_product(product)
