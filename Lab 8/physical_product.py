@@ -8,7 +8,7 @@ import math
 
 from product import Product
 from can_be_shipped import CanBeShipped
-
+from supplier import Supplier
 
 class PhysicalProduct(Product, CanBeShipped):
     TYPE = "physical"
@@ -16,8 +16,16 @@ class PhysicalProduct(Product, CanBeShipped):
     BASE_SHIPPING_COST = 5.00
     COST_PER_KG = 2.00
 
-    def __init__(self, product_id, name, price, stock, weight):
-        super().__init__(product_id, name, price, stock)
+    def __init__(
+    self,
+    product_id: str,
+    name: str,
+    price: float,
+    stock: int,
+    supplier: Supplier,
+    weight: float
+    ):
+        super().__init__(product_id, name, price, stock, supplier)
         self.__weight = self.validate_weight(weight)
 
     @staticmethod
@@ -54,11 +62,14 @@ class PhysicalProduct(Product, CanBeShipped):
         return data
 
     @classmethod
-    def from_dict(cls, data, default_id):
+    def from_dict(cls, data: dict, default_id: str):
+        supplier = Supplier.from_dict(data["supplier"])
+
         return cls(
             data.get("product_id", default_id),
             data["name"],
             data.get("price", 0.0),
             data["stock"],
+            supplier,
             data["weight"]
         )
