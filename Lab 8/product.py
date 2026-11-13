@@ -5,14 +5,22 @@
 
 import math
 from abc import ABC, abstractmethod
-
+from supplier import Supplier
     
 class Product(ABC):
-    def __init__(self, product_id, name, price, stock):
+    def __init__(
+        self,
+        product_id: str,
+        name: str,
+        price: float,
+        stock: int,
+        supplier: Supplier
+    ):
         self.__product_id = self.validate_product_id(product_id)
         self.__name = self.validate_name(name)
         self.__price = self.validate_price(price)
         self.__stock = 0
+        self.supplier: Supplier = supplier
         self.update_stock(stock)
 
     @staticmethod
@@ -95,12 +103,13 @@ class Product(ABC):
             end=""
         )
 
-    def to_dict(self):
+    def to_dict(self) -> dict:
         return {
             "product_id": self.__product_id,
             "name": self.__name,
             "price": self.__price,
-            "stock": self.__stock
+            "stock": self.__stock,
+            "supplier": self.supplier.to_dict()
         }
 
     @abstractmethod
@@ -108,11 +117,3 @@ class Product(ABC):
         # Describe how this product reaches the customer.
         pass
         
-
-    def to_dict(self):
-        return {
-            "product_id": self.__product_id,
-            "name": self.__name,
-            "price": self.__price,
-            "stock": self.__stock
-        }
