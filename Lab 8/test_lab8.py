@@ -1,4 +1,4 @@
-# Lab 7 checks. Run with:  python test_lab7.py
+# Lab 8 checks. Run with:  python test_lab8.py
 import contextlib
 import io
 import tempfile
@@ -74,16 +74,34 @@ class Lab8Tests(unittest.TestCase):
 
     def test_validation(self):
         with self.assertRaises(ValueError):
-            PhysicalProduct("A1", "Bad", 1.0, 1, 0)
+            supplier = Supplier(
+                "SUP001",
+                "Test Supplier",
+                "test@example.com"
+            )
+
+            PhysicalProduct("A1", "Bad", 1.0, 1, supplier, 0)
         with self.assertRaises(ValueError):
-            DigitalProduct("A1", "Bad", 1.0, 1, -5)
+            supplier = Supplier(
+                "SUP001",
+                "Test Supplier",
+                "test@example.com"
+            )
+
+            DigitalProduct("A1", "Bad", 1.0, 1, supplier, -5)
 
     def test_inventory_operations(self):
         inv = Inventory()
         inv.add_product(self.guitar)
         inv.add_product(self.os)
         with self.assertRaises(ValueError):
-            inv.add_product(PhysicalProduct("g001", "Dup", 1.0, 1, 1.0))
+            supplier = Supplier(
+                "SUP001",
+                "Test Supplier",
+                "test@example.com"
+            )
+
+            inv.add_product(PhysicalProduct("g001", "Dup", 1.0, 1, supplier, 1.0))
         self.assertIs(inv.search_product("guitar"), self.guitar)
         inv.update_stock("OS001", 50)
         self.assertEqual(self.os.stock, 50)
@@ -110,6 +128,44 @@ class Lab8Tests(unittest.TestCase):
             Inventory.from_dict(
                 {"products": [{"type": "alien", "name": "x", "stock": 1}]}
             )
+
+    
+def test_supplier_association(self):
+    supplier = Supplier(
+        "SUP002",
+        "Electronics Wholesale",
+        "sales@electronics.com"
+    )
+
+    product = PhysicalProduct(
+        "P001",
+        "Keyboard",
+        89.90,
+        10,
+        supplier,
+        0.8
+    )
+
+    # Confirm Product stores the Supplier reference.
+    self.assertIs(product.supplier, supplier)
+
+    # Delete the original supplier variable.
+    del supplier
+
+    # Product should still be able to access its Supplier.
+    self.assertEqual(
+        product.supplier.name,
+        "Electronics Wholesale"
+    )
+
+    # Display supplier information through Product.
+    output = output_of(
+        product.supplier.display_information
+    )
+
+    self.assertIn("Electronics Wholesale", output)
+    self.assertIn("sales@electronics.com", output)
+
 
 
 if __name__ == "__main__":
