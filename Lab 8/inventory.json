@@ -1,0 +1,26 @@
+{
+  "products": [
+    {
+      "product_id": "T001",
+      "name": "Test",
+      "price": 100.0,
+      "stock": 0,
+      "type": "physical",
+      "weight": 30.0
+    },
+    {
+      "product_id": "T002",
+      "name": "T2",
+      "price": 2.0,
+      "stock": 30,
+      "type": "digital",
+      "download_size": 100.0
+    }
+  ],
+  "transactions": [
+    2,
+    30,
+    -2
+  ],
+  "total_transaction_amount": 30
+}
