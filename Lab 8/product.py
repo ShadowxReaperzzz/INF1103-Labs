@@ -102,6 +102,9 @@ class Product(ABC):
             f"Price: ${self.__price:.2f} | Stock: {self.__stock}",
             end=""
         )
+        print(f"\nSupplier ID: {self.supplier.supplier_id}")
+        print(f"Supplier Name: {self.supplier.name}")
+        print(f"Supplier Email: {self.supplier.contact_email}")
 
     def to_dict(self) -> dict:
         return {
