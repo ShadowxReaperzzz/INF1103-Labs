@@ -7,13 +7,22 @@
 import math
 
 from product import Product
+from supplier import Supplier
 
 
 class DigitalProduct(Product):
     TYPE = "digital"
 
-    def __init__(self, product_id, name, price, stock, download_size):
-        super().__init__(product_id, name, price, stock)
+    def __init__(
+    self,
+    product_id: str,
+    name: str,
+    price: float,
+    stock: int,
+    supplier: Supplier,
+    download_size: float
+):
+        super().__init__(product_id, name, price, stock, supplier)
         self.__download_size = self.validate_download_size(download_size)
 
     @staticmethod
@@ -46,11 +55,14 @@ class DigitalProduct(Product):
         return data
 
     @classmethod
-    def from_dict(cls, data, default_id):
+    def from_dict(cls, data: dict, default_id: str):
+        supplier = Supplier.from_dict(data["supplier"])
+
         return cls(
             data.get("product_id", default_id),
             data["name"],
             data.get("price", 0.0),
             data["stock"],
+            supplier,
             data["download_size"]
         )
