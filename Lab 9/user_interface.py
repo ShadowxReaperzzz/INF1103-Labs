@@ -99,36 +99,8 @@ def ask_yes_no(prompt):
 def add_product_flow(inventory):
     print("Add New Product")
 
-    while True:
-        try:
-            if product_type == "physical":
-                weight = get_positive_float("Weight (kg): ", "weight")
-
-                product = ProductFactory.create(
-                    product_type, product_id, name,
-                    price, quantity, supplier,
-                    weight=weight
-                )
-
-            else:
-                size = get_positive_float(
-                    "Download size (MB): ", "download size"
-                )
-
-                product = ProductFactory.create(
-                    product_type, product_id, name,
-                    price, quantity, supplier,
-                    download_size=size
-                )
-
-            inventory.add_product(product)
-
-        except ValueError as error:
-            print(error)
-        else:
-            print("\nProduct added successfully!\n")
-
     product_type = choose_product_type()
+    product_id = get_input("Product ID: ")
     name = get_input("Product Name: ")
     price = get_price("Price: ")
     quantity = get_integer("Stock Quantity: ")
@@ -147,20 +119,37 @@ def add_product_flow(inventory):
     try:
         if product_type == "physical":
             weight = get_positive_float("Weight (kg): ", "weight")
-            product = PhysicalProduct(
-                product_id, name, price, quantity, supplier, weight
+
+            product = ProductFactory.create(
+                product_type,
+                product_id,
+                name,
+                price,
+                quantity,
+                supplier,
+                weight=weight
             )
+
         else:
             size = get_positive_float(
                 "Download size (MB): ", "download size"
             )
-            product = DigitalProduct(
-                product_id, name, price, quantity, supplier, size
+
+            product = ProductFactory.create(
+                product_type,
+                product_id,
+                name,
+                price,
+                quantity,
+                supplier,
+                download_size=size
             )
 
         inventory.add_product(product)
+
     except ValueError as error:
         print(error)
+
     else:
         print("\nProduct added successfully!\n")
 
