@@ -102,17 +102,11 @@ def add_product_flow(inventory):
     while True:
         try:
             if product_type == "physical":
-                weight = get_positive_float(
-                    "Weight (kg): ", "weight"
-                )
+                weight = get_positive_float("Weight (kg): ", "weight")
 
                 product = ProductFactory.create(
-                    product_type,
-                    product_id,
-                    name,
-                    price,
-                    quantity,
-                    supplier,
+                    product_type, product_id, name,
+                    price, quantity, supplier,
                     weight=weight
                 )
 
@@ -122,12 +116,8 @@ def add_product_flow(inventory):
                 )
 
                 product = ProductFactory.create(
-                    product_type,
-                    product_id,
-                    name,
-                    price,
-                    quantity,
-                    supplier,
+                    product_type, product_id, name,
+                    price, quantity, supplier,
                     download_size=size
                 )
 
