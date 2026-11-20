@@ -53,9 +53,9 @@ class Product(ABC):
 
     @staticmethod
     def validate_price(price):
-        if not math.isfinite(price) or price < 0:
+        if not math.isfinite(price) or price <= 0:
             raise ValueError(
-                "Price must be a finite, non-negative number."
+                "Price must be greater than zero."
             )
 
         return price
