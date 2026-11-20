@@ -195,7 +195,12 @@ def search_product_flow(inventory):
             print("-" * 20)
             print(f"ID: {product.product_id}")
             print(f"Name: {product.name}")
-            print(f"Price: ${product.price:.2f}")
+            discount = product.price * 0.05
+            discounted_price = product.price - discount
+
+            print(f"Original Price: ${product.price:.2f}")
+            print(f"Student Discount (5%): -${discount:.2f}")
+            print(f"Discounted Price: ${discounted_price:.2f}")
             print(f"Stock: {product.stock}")
             print("-" * 20)
 
