@@ -97,11 +97,17 @@ class Product(ABC):
         )
 
     def display_information(self):
+        discount = self.__price * 0.05
+        discounted_price = self.__price - discount
+
         print(
             f"ID: {self.__product_id} | Name: {self.__name} | "
-            f"Price: ${self.__price:.2f} | Stock: {self.__stock}",
+            f"Original Price: ${self.__price:.2f} | "
+            f"Student Discount (5%): -${discount:.2f} | "
+            f"Discounted Price: ${discounted_price:.2f}",
             end=""
         )
+
         print(f"\nSupplier ID: {self.supplier.supplier_id}")
         print(f"Supplier Name: {self.supplier.name}")
         print(f"Supplier Email: {self.supplier.contact_email}")
