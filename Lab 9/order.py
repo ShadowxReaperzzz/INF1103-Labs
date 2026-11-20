@@ -1,4 +1,3 @@
-
 from product import Product
 from discount_strategy import DiscountStrategy, NoDiscount
 
