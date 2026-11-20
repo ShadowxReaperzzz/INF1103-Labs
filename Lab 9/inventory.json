@@ -1,0 +1,50 @@
+{
+  "products": [
+    {
+      "product_id": "T001",
+      "name": "Test",
+      "price": 100.0,
+      "stock": 0,
+      "supplier": {
+        "supplier_id": "SUP000",
+        "name": "Unspecified Supplier",
+        "contact_email": "not-provided@example.com"
+      },
+      "type": "physical",
+      "weight": 30.0
+    },
+    {
+      "product_id": "T002",
+      "name": "T2",
+      "price": 2.0,
+      "stock": 30,
+      "supplier": {
+        "supplier_id": "SUP000",
+        "name": "Unspecified Supplier",
+        "contact_email": "not-provided@example.com"
+      },
+      "type": "digital",
+      "download_size": 100.0
+    },
+    {
+      "product_id": "T003",
+      "name": "T1",
+      "price": 222.0,
+      "stock": 3,
+      "supplier": {
+        "supplier_id": "X001",
+        "name": "X",
+        "contact_email": "abc"
+      },
+      "type": "physical",
+      "weight": 10.0
+    }
+  ],
+  "transactions": [
+    2,
+    30,
+    -2,
+    3
+  ],
+  "total_transaction_amount": 33
+}
