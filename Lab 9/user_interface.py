@@ -4,8 +4,7 @@
 
 import math
 
-from physical_product import PhysicalProduct
-from digital_product import DigitalProduct
+from product_factory import ProductFactory
 from inventory_storage import save_inventory
 from supplier import Supplier
 
@@ -102,12 +101,42 @@ def add_product_flow(inventory):
 
     while True:
         try:
-            product_id = inventory.validate_new_product_id(
-                get_input("Product ID: ")
-            )
-            break
+            if product_type == "physical":
+                weight = get_positive_float(
+                    "Weight (kg): ", "weight"
+                )
+
+                product = ProductFactory.create(
+                    product_type,
+                    product_id,
+                    name,
+                    price,
+                    quantity,
+                    supplier,
+                    weight=weight
+                )
+
+            else:
+                size = get_positive_float(
+                    "Download size (MB): ", "download size"
+                )
+
+                product = ProductFactory.create(
+                    product_type,
+                    product_id,
+                    name,
+                    price,
+                    quantity,
+                    supplier,
+                    download_size=size
+                )
+
+            inventory.add_product(product)
+
         except ValueError as error:
-            print(f"Invalid product ID: {error} Please try again.")
+            print(error)
+        else:
+            print("\nProduct added successfully!\n")
 
     product_type = choose_product_type()
     name = get_input("Product Name: ")

@@ -5,20 +5,49 @@
 # A new product type only need to be registered here.
 # =====================================================
 
+
 from physical_product import PhysicalProduct
 from digital_product import DigitalProduct
 
+class ProductFactory:
 
-PRODUCT_TYPES = {
-    cls.TYPE: cls for cls in (PhysicalProduct, DigitalProduct)
-}
+    @staticmethod
+    def create(
+        product_type: str,
+        product_id: str,
+        name: str,
+        price: float,
+        stock: int,
+        supplier,
+        weight=None,
+        download_size=None
+    ):
+        if product_type == "physical":
+            return PhysicalProduct(
+                product_id, name, price, stock, supplier, weight
+            )
+
+        elif product_type == "digital":
+            return DigitalProduct(
+                product_id, name, price, stock, supplier, download_size
+            )
+
+        else:
+            raise ValueError(
+                f"Unknown product type: {product_type}"
+            )
 
 
 def product_from_dict(data, default_id):
     product_type = data.get("type")
-    product_class = PRODUCT_TYPES.get(product_type)
 
-    if product_class is None:
-        raise ValueError(f"Unknown product type: {product_type!r}")
+    if product_type == "physical":
+        return PhysicalProduct.from_dict(data, default_id)
 
-    return product_class.from_dict(data, default_id)
+    elif product_type == "digital":
+        return DigitalProduct.from_dict(data, default_id)
+
+    else:
+        raise ValueError(
+            f"Unknown product type: {product_type!r}"
+        )
